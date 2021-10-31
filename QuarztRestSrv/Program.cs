@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,9 +6,37 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddRouting(o =>
+{
+    o.LowercaseUrls = true;
+
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+ {
+     c.SwaggerDoc("v1", new OpenApiInfo
+     {
+         Version = "v1",
+         Title = "Quartz.Net REST API",
+         Description = "A REST api for the quart.net scheduler",
+         TermsOfService = new Uri("https://example.com/terms"),
+         Contact = new OpenApiContact
+         {
+             Name = "Some One",
+             Email = string.Empty,
+             Url = new Uri("https://twitter.com/spboyer"),
+         },
+         License = new OpenApiLicense
+         {
+             Name = "Use under LICX",
+             Url = new Uri("https://example.com/license"),
+         }
+     });
+ });
 
 builder.Services.AddQuartz(q =>
 {
@@ -45,10 +74,10 @@ builder.Services.AddQuartz(q =>
     // you can also configure individual jobs and triggers with code
     // this allows you to associated multiple triggers with same job
     // (if you want to have different job data map per trigger for example)
-   /* q.AddJob<ExampleJob>(j => j
-        .StoreDurably() // we need to store durably if no trigger is associated
-        .WithDescription("my awesome job")
-    );*/
+    /* q.AddJob<ExampleJob>(j => j
+         .StoreDurably() // we need to store durably if no trigger is associated
+         .WithDescription("my awesome job")
+     );*/
 
     // here's a known job for triggers
     /*var jobKey = new JobKey("awesome job", "awesome group");
@@ -73,50 +102,50 @@ builder.Services.AddQuartz(q =>
     );*/
 
     // auto-interrupt long-running job
-   /* q.UseJobAutoInterrupt(options =>
-    {
-        // this is the default
-        options.DefaultMaxRunTime = TimeSpan.FromMinutes(5);
-    });
-    q.ScheduleJob<SlowJob>(
-        triggerConfigurator => triggerConfigurator
-            .WithIdentity("slowJobTrigger")
-            .StartNow()
-            .WithSimpleSchedule(x => x.WithIntervalInSeconds(5).RepeatForever()),
-        jobConfigurator => jobConfigurator
-            .WithIdentity("slowJob")
-            .UsingJobData(JobInterruptMonitorPlugin.JobDataMapKeyAutoInterruptable, true)
-            // allow only five seconds for this job, overriding default configuration
-            .UsingJobData(JobInterruptMonitorPlugin.JobDataMapKeyMaxRunTime, TimeSpan.FromSeconds(5).TotalMilliseconds.ToString(CultureInfo.InvariantCulture)));
-    
-    const string calendarName = "myHolidayCalendar";
-    q.AddCalendar<HolidayCalendar>(
-        name: calendarName,
-        replace: true,
-        updateTriggers: true,
-        x => x.AddExcludedDate(new DateTime(2020, 5, 15))
-    );
+    /* q.UseJobAutoInterrupt(options =>
+     {
+         // this is the default
+         options.DefaultMaxRunTime = TimeSpan.FromMinutes(5);
+     });
+     q.ScheduleJob<SlowJob>(
+         triggerConfigurator => triggerConfigurator
+             .WithIdentity("slowJobTrigger")
+             .StartNow()
+             .WithSimpleSchedule(x => x.WithIntervalInSeconds(5).RepeatForever()),
+         jobConfigurator => jobConfigurator
+             .WithIdentity("slowJob")
+             .UsingJobData(JobInterruptMonitorPlugin.JobDataMapKeyAutoInterruptable, true)
+             // allow only five seconds for this job, overriding default configuration
+             .UsingJobData(JobInterruptMonitorPlugin.JobDataMapKeyMaxRunTime, TimeSpan.FromSeconds(5).TotalMilliseconds.ToString(CultureInfo.InvariantCulture)));
 
-    q.AddTrigger(t => t
-        .WithIdentity("Daily Trigger")
-        .ForJob(jobKey)
-        .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(5)))
-        .WithDailyTimeIntervalSchedule(x => x.WithInterval(10, IntervalUnit.Second))
-        .WithDescription("my awesome daily time interval trigger")
-        .ModifiedByCalendar(calendarName)
-    );
-    */
+     const string calendarName = "myHolidayCalendar";
+     q.AddCalendar<HolidayCalendar>(
+         name: calendarName,
+         replace: true,
+         updateTriggers: true,
+         x => x.AddExcludedDate(new DateTime(2020, 5, 15))
+     );
+
+     q.AddTrigger(t => t
+         .WithIdentity("Daily Trigger")
+         .ForJob(jobKey)
+         .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(5)))
+         .WithDailyTimeIntervalSchedule(x => x.WithInterval(10, IntervalUnit.Second))
+         .WithDescription("my awesome daily time interval trigger")
+         .ModifiedByCalendar(calendarName)
+     );
+     */
     // also add XML configuration and poll it for changes
-    /*q.UseXmlSchedulingConfiguration(x =>
+    q.UseXmlSchedulingConfiguration(x =>
     {
-        x.Files = new[] { "~/quartz_jobs.config" };
+        x.Files = new[] { "quartz_jobs.xml" };
         x.ScanInterval = TimeSpan.FromMinutes(1);
         x.FailOnFileNotFound = true;
         x.FailOnSchedulingError = true;
-    });*/
+    });
 
     // convert time zones using converter that can handle Windows/Linux differences
-   // q.UseTimeZoneConverter();
+    q.UseTimeZoneConverter();
 
     // add some listeners
     //q.AddSchedulerListener<SampleSchedulerListener>();
