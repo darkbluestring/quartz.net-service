@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Routing;
 
 using System.Collections.ObjectModel;
 using Quartz;
-using QuarztRestSrv.Data;
+using Quartz.RestApi.Data;
 using Quartz.Impl.Matchers;
 
-namespace QuarztRestSrv.Controllers;
+namespace Quartz.RestApi.Controllers;
 
 
 [Route("[controller]")]

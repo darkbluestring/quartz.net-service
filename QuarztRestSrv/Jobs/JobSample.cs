@@ -1,6 +1,6 @@
 ﻿using System;
 using Quartz;
-namespace QuarztRestSrv.Jobs
+namespace Quartz.RestApi.Jobs
 {
     public class JobSample : IJob
     {

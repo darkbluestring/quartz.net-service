@@ -1,6 +1,6 @@
 using Quartz;
 
-namespace QuarztRestSrv.Data;
+namespace Quartz.RestApi.Data;
 
 public class SchedulerState
 {

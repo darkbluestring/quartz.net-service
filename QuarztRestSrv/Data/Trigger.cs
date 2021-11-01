@@ -1,4 +1,4 @@
-﻿namespace QuarztRestSrv.Data
+﻿namespace Quartz.RestApi.Data
 {
     public class Trigger
     {
