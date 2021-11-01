@@ -9,7 +9,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Quartz.RestApi' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Quarzt.RestApi' " />
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.3.3" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />

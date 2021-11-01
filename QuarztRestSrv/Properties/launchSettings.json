@@ -17,10 +17,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Quartz.RestApi": {
+    "Quarzt.RestApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7088;http://localhost:7089",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5249",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
