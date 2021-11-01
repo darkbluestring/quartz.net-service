@@ -17,12 +17,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Quartz.Plugins" Version="3.3.3" />
     <PackageReference Include="Quartz.Plugins.TimeZoneConverter" Version="3.3.3" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Quartz.Plugins" />
     <None Remove="Quartz.Plugins.TimeZoneConverter" />
     <None Remove="Jobs\" />
+    <None Remove="HotChocolate.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <None Update="quartz_jobs.xml">
