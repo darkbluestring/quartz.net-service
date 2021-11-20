@@ -9,7 +9,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Quarzt.RestApi' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Quarzt.WebApi' " />
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.3.3" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
@@ -25,6 +25,10 @@
     <None Remove="Quartz.Plugins.TimeZoneConverter" />
     <None Remove="Jobs\" />
     <None Remove="HotChocolate.AspNetCore" />
+    <None Remove="Rest\" />
+    <None Remove="Rest\Controllers\" />
+    <None Remove="Graphql\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="quartz_jobs.xml">
@@ -35,5 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Jobs\" />
+    <Folder Include="Rest\" />
+    <Folder Include="Rest\Controllers\" />
+    <Folder Include="Graphql\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

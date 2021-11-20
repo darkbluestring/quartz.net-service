@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Quartz;
+using Quartz.WebApi.Graphql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddRouting();
-builder.Services.AddGraphQLServer();
+builder.Services.AddGraphQLServer()
+    .AddQueryType<Query>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -116,6 +118,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseRouting();
 
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGraphQL();
@@ -123,7 +127,7 @@ app.UseEndpoints(endpoints =>
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+
 
 app.MapControllers();
 

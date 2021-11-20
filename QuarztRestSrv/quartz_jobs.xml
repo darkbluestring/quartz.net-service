@@ -8,7 +8,7 @@
 			<name>jobName1</name>
 			<group>jobGroup1</group>
 			<description>jobDesciption1</description>
-			<job-type>Quartz.RestApi.Jobs.JobSample, Quartz.RestApi</job-type>
+			<job-type>Quartz.WebApi.Jobs.JobSample, Quartz.WebApi</job-type>
 			<durable>true</durable>
 			<recover>false</recover>
 			<job-data-map>

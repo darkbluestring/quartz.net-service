@@ -1,4 +1,4 @@
-﻿namespace Quartz.RestApi.Data
+﻿namespace Quartz.WebApi.Data
 {
     public class Trigger
     {
